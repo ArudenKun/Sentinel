@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6840718-D1B5-419F-9EC2-017E10D2B76C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{BC27BA71-F451-4429-B7A5-8C5650AE45D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sentinel", "src\Sentinel.csproj", "{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.Hosting", "lib\Wpf.Hosting\Wpf.Hosting.csproj", "{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9} = {C6840718-D1B5-419F-9EC2-017E10D2B76C}
+		{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035} = {BC27BA71-F451-4429-B7A5-8C5650AE45D9}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ACE8EAE-0AC7-4D1C-B4A7-AE64A82180A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C467B5-2C4A-4553-9EA4-5AF3C4F7A035}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

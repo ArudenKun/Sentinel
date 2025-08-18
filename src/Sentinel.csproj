@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <DefineConstants>$(DefineConstants);HAS_WPF</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AsyncAwaitBestPractices" Version="9.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Mvvm.Navigation.Wpf" Version="1.5.1" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+    <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.3" />
+    <PackageReference Include="WPF-UI.Tray" Version="4.0.3" />
+    <PackageReference Include="WPF-UI.Violeta" Version="4.0.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lib\Wpf.Hosting\Wpf.Hosting.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Windows\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\SettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+</Project>
