@@ -1,5 +1,5 @@
 using System.Windows;
-using Mvvm.Navigation;
+using System.Windows.Markup;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
@@ -9,9 +9,9 @@ using Mvvm.Navigation;
 //(used if a resource is not found in the page,
 // app, or any theme specific resource dictionaries)
 )]
-[assembly: MapViews(
-    nameof(Sentinel.Views),
-    nameof(Sentinel.ViewModels),
-    ViewModel = true,
-    ViewModelConstructor = true
+[assembly: XmlnsPrefix("http://schemas.lepo.co/wpfui/2022/xaml/extended", "uie")]
+[assembly: XmlnsDefinition("http://schemas.lepo.co/wpfui/2022/xaml/extended", "Sentinel.Controls")]
+[assembly: XmlnsDefinition(
+    "http://schemas.lepo.co/wpfui/2022/xaml/extended",
+    "Sentinel.Controls.FontIcon"
 )]

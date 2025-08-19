@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Violeta.Controls;
+﻿using Microsoft.Extensions.Logging;
+using Sentinel.Views.Windows;
 
 namespace Sentinel;
 
@@ -7,25 +8,30 @@ namespace Sentinel;
 /// </summary>
 public partial class App
 {
-    public App()
+    private readonly ILoggerFactory _loggerFactory;
+
+    public App(ILoggerFactory loggerFactory)
     {
+        _loggerFactory = loggerFactory;
         InitializeComponent();
         DispatcherUnhandledException += (_, e) =>
         {
             e.Handled = true;
-            HandleUnhandledException(e.Exception);
+            HandleUnhandledException(e.Exception, "UI");
         };
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
-            HandleUnhandledException((Exception)e.ExceptionObject);
+            HandleUnhandledException((Exception)e.ExceptionObject, "App");
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
             e.SetObserved();
-            HandleUnhandledException(e.Exception);
+            HandleUnhandledException(e.Exception, "Task");
         };
     }
 
-    private static void HandleUnhandledException(Exception exception)
+    private void HandleUnhandledException(Exception exception, string category)
     {
-        ExceptionReport.Show(exception, "", "");
+        var logger = _loggerFactory.CreateLogger(category);
+        logger.LogError(exception, "{Message}", exception.ToString());
+        ExceptionWindow.Show(exception);
     }
 }

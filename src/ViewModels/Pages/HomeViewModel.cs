@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui;
-using Wpf.Ui.Controls;
 
 namespace Sentinel.ViewModels.Pages;
 
@@ -26,16 +25,15 @@ public sealed partial class HomeViewModel : ViewModel
     private async Task OnCounterIncrement()
     {
         Counter++;
-        Wpf.Ui.Controls.ContentDialog dialog = new()
-        {
-            Title = "My sample dialog",
-            Content = "Content of the dialog",
-            CloseButtonText = "Close button",
-            PrimaryButtonText = "Primary button",
-            SecondaryButtonText = "Secondary button",
-        };
-
-        dialog.DialogHost = ContentDialogHostService.ContentPresenterForDialogs;
-        await dialog.ShowAsync();
+        throw new NotImplementedException("Testing");
+        // Wpf.Ui.Controls.ContentDialog dialog = new()
+        // {
+        //     Title = "My sample dialog",
+        //     Content = "Content of the dialog",
+        //     CloseButtonText = "Close button",
+        //     PrimaryButtonText = "Primary button",
+        //     SecondaryButtonText = "Secondary button",
+        // };
+        // await dialog.ShowAsync();
     }
 }

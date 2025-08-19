@@ -17,9 +17,13 @@ public static class Program
     {
         var builder = Host.CreateApplicationBuilder(args);
 
+        const string logTemplate =
+            "[{Timestamp:HH:mm:ss}][{Level:u3}][{SourceContext}] {Message:lj}{NewLine}{Exception}";
         builder.AddWpfHost<App, MainWindow>();
         builder.Services.AddSerilog(configuration =>
-            configuration.Enrich.FromLogContext().WriteTo.Async(c => c.Console())
+            configuration
+                .Enrich.FromLogContext()
+                .WriteTo.Async(c => c.Console(outputTemplate: logTemplate))
         );
         builder.Services.AddMvvmNavigation();
         builder.Services.AddNavigationViewPageProvider();
