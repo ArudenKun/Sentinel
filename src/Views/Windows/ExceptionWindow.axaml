@@ -1,0 +1,123 @@
+﻿<suki:SukiWindow
+    x:Class="Sentinel.Views.Windows.ExceptionWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lucide="clr-namespace:Lucide.Avalonia;assembly=Lucide.Avalonia"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    xmlns:vw="clr-namespace:Sentinel.Views.Windows"
+    Title="ExceptionWindow"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="vw:ExceptionWindow"
+    mc:Ignorable="d">
+    <Panel>
+        <Grid Margin="16,42,16,16" RowDefinitions="Auto, Auto, *, Auto">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+                <lucide:LucideIcon
+                    Grid.Column="0"
+                    Kind="MessageCircleWarning"
+                    Size="28" />
+                <Grid
+                    Grid.Column="1"
+                    Margin="12,0,0,0"
+                    VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock
+                            x:Name="Hint1TextBlock"
+                            VerticalAlignment="Center"
+                            FontSize="20" />
+                        <TextBlock
+                            x:Name="Hint2TextBlock"
+                            VerticalAlignment="Center"
+                            FontSize="12" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Margin="0,12,0,0">
+                <StackPanel>
+                    <TextBlock VerticalAlignment="Center">
+                        <TextBlock.Inlines>
+                            <Run Text="{Binding AppName}" />
+                            <Run Text="{Binding AppVersion}" />
+                            <Run Text="|" />
+                            <Run Text="{Binding ErrorTime, Mode=OneTime}" />
+                            <Run Text="|" />
+                            <Run Text="{Binding OSVersion, Mode=OneTime}" />
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        VerticalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="#B83C4B"
+                        Text="{Binding ExceptionType}" />
+                </StackPanel>
+            </Grid>
+            <Border
+                Grid.Row="2"
+                Margin="0,12,0,0"
+                Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="3">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock
+                            Margin="12"
+                            Foreground="#FFAC58"
+                            Text="{Binding ExceptionObject.Message}"
+                            TextWrapping="Wrap" />
+                        <TextBlock
+                            Margin="12"
+                            Foreground="#FFAC58"
+                            Text="{Binding ExceptionObject}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+            <Grid Grid.Row="3" Margin="0,12,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Button x:Name="TryIgnoreButton" MinWidth="120">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <LucideIcon Kind="RefreshCcw" />
+                                <TextBlock x:Name="IgnoreTextBlock" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="CopyButton" MinWidth="120">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <LucideIcon Kind="Copy" />
+                                <TextBlock x:Name="CopyTextBlock" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Button x:Name="ExitButton" MinWidth="120">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <LucideIcon Kind="X" />
+                                <TextBlock x:Name="ExitTextBlock" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Panel>
+</suki:SukiWindow>
