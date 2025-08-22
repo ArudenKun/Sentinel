@@ -1,0 +1,65 @@
+﻿<UserControl
+    x:Class="Sentinel.Views.ExceptionView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:suki="https://github.com/kikipoulet/SukiUI"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid RowDefinitions="*,Auto">
+        <Grid
+            Grid.Row="0"
+            Margin="8,4,8,4"
+            RowDefinitions="Auto,*">
+            <suki:GlassCard Grid.Row="0">
+                <suki:GroupBox>
+                    <suki:GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="Error Occured" />
+
+                    </suki:GroupBox.Header>
+                    <ScrollViewer
+                        MaxHeight="150"
+                        HorizontalScrollBarVisibility="Disabled"
+                        VerticalScrollBarVisibility="Auto">
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            Text="Placeholder Error Message"
+                            TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </suki:GroupBox>
+
+            </suki:GlassCard>
+            <suki:GlassCard Grid.Row="1">
+                <suki:GroupBox>
+                    <suki:GroupBox.Header>
+                        <TextBlock FontWeight="Bold" Text="Error Details" />
+
+                    </suki:GroupBox.Header>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <TextBlock
+                            Margin="8,0,0,0"
+                            Text="Exception Details"
+                            TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </suki:GroupBox>
+
+            </suki:GlassCard>
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            Padding="12,0"
+            Background="{DynamicResource ErrorViewBackgroundBrush}">
+            <Grid MinHeight="40" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button
+                        Classes="Basic"
+                        Content="Copy"
+                        ToolTip.Tip="Copy To Clipboard" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

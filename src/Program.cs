@@ -1,5 +1,6 @@
 ﻿using System;
 using Avalonia;
+using Sentinel.Common.Helpers;
 
 namespace Sentinel;
 
@@ -15,11 +16,12 @@ internal static class Program
 
         try
         {
+            LogHelper.Information("Initializing");
             builder.StartWithClassicDesktopLifetime(args);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            LogHelper.Error(e, "Global Unhandled Exception");
             throw;
         }
         finally
@@ -33,5 +35,5 @@ internal static class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     public static AppBuilder BuildAvaloniaApp() =>
-        AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont().LogToTrace();
+        AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont().UseR3().LogToTrace();
 }

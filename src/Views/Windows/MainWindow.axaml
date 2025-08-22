@@ -1,0 +1,28 @@
+<Window
+    x:Class="Sentinel.Views.Windows.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:windows="clr-namespace:Sentinel.ViewModels.Windows"
+    Title="Sentinel"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="windows:MainWindowViewModel"
+    Icon="/Resources/avalonia-logo.ico"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Localize {x:Static Locale+Keys.Hello}}" />
+        <Button Command="{Binding ShowExceptionCommand}" Content="Show Exception" />
+        <ComboBox
+            DisplayMemberBinding="{Binding Name}"
+            ItemsSource="{x:Static Localizer.Cultures}"
+            SelectedItem="{Binding Settings.Language}" />
+    </StackPanel>
+
+</Window>
