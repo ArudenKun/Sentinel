@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using H.Generators.Extensions;
+using Microsoft.CodeAnalysis;
 
 namespace Sentinel.SourceGenerator.Generators.Localization;
 
@@ -13,7 +14,11 @@ public sealed class Generator : IIncrementalGenerator
 
         var provider = jsonFiles
             .Combine(context.CompilationProvider)
-            .Combine(context.AnalyzerConfigOptionsProvider);
+            .Combine(context.AnalyzerConfigOptionsProvider)
+            .Where(static pair =>
+                pair.Right.GetOption(pair.Left.Left, "GenerateLocalization")?.ToUpperInvariant()
+                == "TRUE"
+            );
 
         context.RegisterSourceOutput(
             provider,

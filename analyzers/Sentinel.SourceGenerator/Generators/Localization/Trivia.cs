@@ -31,6 +31,16 @@ internal static class Trivia
             ),
         ];
 
+    internal static SyntaxTrivia[] CreateGetCulturesDocCommentTrivia() =>
+        [
+            SyntaxFactory.Comment("/// <summary>"),
+            SyntaxFactory.Comment("/// Retrieves all available cultures"),
+            SyntaxFactory.Comment("/// </summary>"),
+            SyntaxFactory.Comment(
+                "/// <returns>A list containing all available cultures</returns>"
+            ),
+        ];
+
     internal static SyntaxTrivia[] CreateGetStringDocCommentTrivia() =>
         [
             SyntaxFactory.Comment("/// <summary>"),

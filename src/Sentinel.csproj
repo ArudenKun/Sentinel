@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\analyzers\Sentinel.SourceGenerator\Sentinel.SourceGenerator.props" />
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
@@ -11,8 +12,11 @@
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="Localization\Locale.json" />
-    <AvaloniaResource Include="Localization\Locale*.json" />
+    <AdditionalFiles
+      Include="Resources\Localization\Locale.json"
+      GenerateLocalization="True"
+      NamespaceName="Sentinel.Localization"
+    />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AsyncAwaitBestPractices" Version="9.0.0" />
@@ -46,7 +50,6 @@
     </PackageReference>
     <PackageReference Include="SukiUI" Version="6.0.3" />
   </ItemGroup>
-  <Import Project="..\analyzers\Sentinel.SourceGenerator\Sentinel.SourceGenerator.props" />
   <ItemGroup>
     <ProjectReference
       Include="..\analyzers\Sentinel.SourceGenerator\Sentinel.SourceGenerator.csproj"

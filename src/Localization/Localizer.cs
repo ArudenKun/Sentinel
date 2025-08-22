@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using AsyncAwaitBestPractices;
-using Avalonia.Platform;
 using Sentinel.Common.Utilities;
 
 namespace Sentinel.Localization;
@@ -16,17 +14,10 @@ public class Localizer : Singleton<Localizer>
 
     public Localizer()
     {
-        _cultures = AssetLoader
-            .GetAssets(new Uri("avares://Sentinel/Localization"), null)
-            .Where(x =>
-                x.Segments.Last().EndsWith(".json", StringComparison.InvariantCultureIgnoreCase)
-            )
-            .Select(x => Path.GetFileNameWithoutExtension(x.Segments.Last()))
-            .Select(name =>
-            {
-                var parts = name.Split('_');
-                return CultureInfo.GetCultureInfo(parts.Length == 1 ? "en-US" : parts.Last());
-            })
+        _cultures = Locale
+            .GetCultures()
+            .Select(x => string.IsNullOrWhiteSpace(x.Name) ? new CultureInfo("en-US") : x)
+            .DistinctBy(x => x.Name)
             .ToList()
             .AsReadOnly();
     }

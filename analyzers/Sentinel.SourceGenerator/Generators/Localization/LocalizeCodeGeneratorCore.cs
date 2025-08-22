@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+
 #pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
 #pragma warning disable CS8603 // Possible null reference return.
 
@@ -27,22 +28,6 @@ internal class LocalizeCodeGeneratorCore
                     SyntaxFactory.ParseName("System.Collections.Generic.Dictionary<string, string>")
                 )
             )
-            // .AddMembers(
-            //     SyntaxFactory
-            //         .ClassDeclaration($"{generatorData.GeneratedClassName}Keys")
-            //         .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-            //         .AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
-            //         .WithLeadingTrivia(
-            //             Trivia.CreateNestedClassHeader(generatorData.FileName, "Translation Keys")
-            //         )
-            //         .AddMembers(
-            //             ProjectKeysToMemberDeclarations(
-            //                 generatorData.InvariantTranslationData,
-            //                 generatorData.FileName,
-            //                 string.Empty
-            //             )
-            //         )
-            // )
             .AddMembers(
                 SyntaxFactory
                     .ClassDeclaration(generatorData.GeneratedClassName)
@@ -52,6 +37,7 @@ internal class LocalizeCodeGeneratorCore
                     .WithLeadingTrivia(Trivia.CreateClassHeader(generatorData.FileName))
                     .AddMembers(LocalizationProviderProperty())
                     .AddMembers(GetAllMethod())
+                    .AddMembers(GetCulturesMethod())
                     .AddMembers(GetStringMethod())
                     .AddMembers(CreateLocalizationProviderClass(generatorData))
                     .AddMembers(
@@ -142,6 +128,13 @@ internal class LocalizeCodeGeneratorCore
             )
             ?.WithLeadingTrivia(Trivia.CreateGetAllDocCommentTrivia());
 
+    private MemberDeclarationSyntax GetCulturesMethod() =>
+        SyntaxFactory
+            .ParseMemberDeclaration(
+                "public static IReadOnlyList<CultureInfo> GetCultures() => provider.GetCultures();"
+            )
+            ?.WithLeadingTrivia(Trivia.CreateGetCulturesDocCommentTrivia());
+
     private MemberDeclarationSyntax GetStringMethod() =>
         SyntaxFactory
             .ParseMemberDeclaration(
@@ -209,48 +202,53 @@ internal class LocalizeCodeGeneratorCore
     {
         var syntaxNode = CSharpSyntaxTree
             .ParseText(
-                @"
-                    private class LocalizationProvider 
+                """
+                private class LocalizationProvider 
+                {
+                    delegate bool SelectorFunc<T>(Translations translations, out T arg);
+
+                    internal string GetValue(string key, CultureInfo cultureInfo)
                     {
-                        delegate bool SelectorFunc<T>(Translations translations, out T arg);
-
-                        internal string GetValue(string key, CultureInfo cultureInfo)
+                        bool ValueSelector(Translations translations, out string value)
                         {
-                            bool ValueSelector(Translations translations, out string value)
-                            {
-                                if (translations.TryGetValue(key, out value))
-                                    return true;
-
-                                value = key;
-                                return false;
-                            }
-
-                            return TraverseCultures<string>(cultureInfo, ValueSelector);
-                        }
-
-                        internal IDictionary<string, string> GetValues(CultureInfo cultureInfo)
-                        {
-                            bool ValueSelector(Translations translations, out Translations value)
-                            {
-                                value = translations;
+                            if (translations.TryGetValue(key, out value))
                                 return true;
-                            }
 
-                            return TraverseCultures<Translations>(cultureInfo, ValueSelector);
+                            value = key;
+                            return false;
                         }
 
-                        private T TraverseCultures<T>(CultureInfo cultureInfo, SelectorFunc<T> selectorFunc)
+                        return TraverseCultures<string>(cultureInfo, ValueSelector);
+                    }
+
+                    internal IDictionary<string, string> GetValues(CultureInfo cultureInfo)
+                    {
+                        bool ValueSelector(Translations translations, out Translations value)
                         {
-                            if (resources.TryGetValue(cultureInfo, out Translations translations))
-                            {
-                                if (selectorFunc(translations, out T result) || cultureInfo == CultureInfo.InvariantCulture)
-                                    return result;
-                            }
-
-                            return TraverseCultures<T>(cultureInfo.Parent, selectorFunc);
+                            value = translations;
+                            return true;
                         }
-                    }   
-                "
+
+                        return TraverseCultures<Translations>(cultureInfo, ValueSelector);
+                    }
+                    
+                    internal IReadOnlyList<CultureInfo> GetCultures()
+                    {
+                        return new List<CultureInfo>(resources.Keys).AsReadOnly();
+                    }
+
+                    private T TraverseCultures<T>(CultureInfo cultureInfo, SelectorFunc<T> selectorFunc)
+                    {
+                        if (resources.TryGetValue(cultureInfo, out Translations translations))
+                        {
+                            if (selectorFunc(translations, out T result) || cultureInfo == CultureInfo.InvariantCulture)
+                                return result;
+                        }
+
+                        return TraverseCultures<T>(cultureInfo.Parent, selectorFunc);
+                    }
+                }
+                """
             )
             .GetRoot();
 

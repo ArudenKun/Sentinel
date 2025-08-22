@@ -21,7 +21,10 @@ public partial class MainWindowViewModel : ViewModel
 
         Settings
             .ObservePropertyChanged(x => x.Language)
-            .Subscribe(c => Localizer.Culture = c)
+            .Subscribe(c =>
+            {
+                Localizer.Culture = c;
+            })
             .AddTo(this);
     }
 

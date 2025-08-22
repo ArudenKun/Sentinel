@@ -11,6 +11,7 @@
       MetadataName="AvaloniaResourcesGenerator_Resource"
     />
     <!--      Localization-->
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="GenerateLocalization" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="NamespaceName" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="ClassName" />
   </ItemGroup>

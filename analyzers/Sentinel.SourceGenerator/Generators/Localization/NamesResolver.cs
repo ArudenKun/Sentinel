@@ -63,7 +63,7 @@ internal class NamesResolver
         {
             var fromPath = EnsurePathEndsWithDirectorySeparator(projectDir);
             var toPath = EnsurePathEndsWithDirectorySeparator(
-                Path.GetDirectoryName(_originFile.Path)
+                Path.GetDirectoryName(_originFile.Path)!
             );
             var relativePath = GetRelativePath(fromPath, toPath);
 
