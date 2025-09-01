@@ -2,41 +2,38 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
-    <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
+    <UseWpf>true</UseWpf>
     <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
-    <DefineConstants>$(DefineConstants);HAS_WPF</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Resources\Fonts\*.ttf" />
-    <None Remove="Resources\Images\*.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Fonts\*.ttf" />
-    <Resource Include="Resources\Images\*.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AsyncAwaitBestPractices" Version="9.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="DependencyPropertyGenerator" Version="1.5.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="H.Resources.Generator" Version="1.8.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Mvvm.Navigation.Wpf" Version="1.5.1" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-    <PackageReference Include="Vanara.PInvoke.NtDll" Version="4.1.6" />
     <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.3" />
     <PackageReference Include="WPF-UI.Tray" Version="4.0.3" />
+    <PackageReference Include="WpfAnalyzers" Version="4.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\Wpf.Hosting\Wpf.Hosting.csproj" />
+    <ProjectReference Include="..\..\lib\Wpf.Hosting\Wpf.Hosting.csproj" />
+    <ProjectReference Include="..\Sentinel.Core\Sentinel.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <Page Update="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>
