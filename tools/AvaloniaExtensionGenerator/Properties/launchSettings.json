@@ -1,0 +1,12 @@
+{
+  "profiles": {
+//    "AvaloniaExtensionGenerator": {
+//      "commandName": "Project",
+//      "commandLineArgs": "--framework"
+//    },
+    "Generate": {
+      "commandName": "Project",
+      "commandLineArgs": "--projectPath=../../src/Sentinel/Sentinel.csproj"
+    }
+  }
+}
