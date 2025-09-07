@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Avalonia;
 using AvaloniaControlsGenerator.Reflectonia.Model;
 
 namespace AvaloniaControlsGenerator.Reflectonia;

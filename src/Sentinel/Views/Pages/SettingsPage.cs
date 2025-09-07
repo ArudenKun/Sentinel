@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.ComponentModel;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Markup.Declarative;
@@ -24,7 +25,7 @@ public class SettingsPage : View<SettingsPageViewModel>
                     .Grid_Row(1)
                     .Items(
                         TabItem()
-                            .Header("User Interface")
+                            .Header("UI")
                             .Content(
                                 TabItemContent(
                                     new SettingsRow()
@@ -32,20 +33,72 @@ public class SettingsPage : View<SettingsPageViewModel>
                                         .IconKind(LucideIconKind.SunMoon)
                                         .Content(
                                             ComboBox()
-                                                .MinWidth(140)
-                                                .VerticalAlignment(VerticalAlignment.Top)
-                                                .ItemsSource(
-                                                    vm.Settings.UI.Theme.GetType().GetAllValues()
-                                                )
+                                                .ItemsSource(vm.Settings.UI.Theme.GetAllValues())
                                                 .SelectedItem(
                                                     () => vm.Settings.UI.Theme,
                                                     theme => vm.Settings.UI.Theme = (Theme)theme
                                                 )
                                         ),
                                     new SettingsRow()
-                                        .Title("Language")
-                                        .IconKind(LucideIconKind.Languages)
-                                        .Content(ComboBox())
+                                        .Title("Background Transitions")
+                                        .IconKind(LucideIconKind.ArrowLeftRight)
+                                        .Content(
+                                            ToggleSwitch()
+                                                .IsChecked(
+                                                    () => vm.Settings.UI.BackgroundTransitions,
+                                                    b =>
+                                                        vm.Settings.UI.BackgroundTransitions =
+                                                            b!.Value
+                                                )
+                                        )
+                                )
+                            ),
+                        TabItem()
+                            .Header("Database")
+                            .Content(
+                                TabItemContent(
+                                    new SettingsRow()
+                                        .Title("Type")
+                                        .IconKind(LucideIconKind.Database)
+                                        .Content(
+                                            ComboBox()
+                                                .ItemsSource(
+                                                    vm.Settings.Database.Type.GetAllValues()
+                                                )
+                                                .SelectedItem(
+                                                    () => vm.Settings.Database.Type,
+                                                    type =>
+                                                        vm.Settings.Database.Type =
+                                                            (DatabaseType)type
+                                                )
+                                        ),
+                                    new SettingsRow()
+                                        .Title("Path")
+                                        .Description("The path of the Sqlite Database")
+                                        .IconKind(LucideIconKind.Lock)
+                                        .Content(
+                                            TextBox()
+                                                .IsEnabled(
+                                                    () =>
+                                                        vm.Settings.Database.Type
+                                                        == DatabaseType.Sqlite,
+                                                    _ => RecomputeAllBindings()
+                                                )
+                                                .Text(() => vm.Settings.Database.ConnectionString)
+                                        ),
+                                    new SettingsRow()
+                                        .Title("Connection String")
+                                        .IconKind(LucideIconKind.Lock)
+                                        .Content(
+                                            TextBox()
+                                                .IsEnabled(
+                                                    () =>
+                                                        vm.Settings.Database.Type
+                                                        == DatabaseType.SqlServer,
+                                                    _ => RecomputeAllBindings()
+                                                )
+                                                .Text("Placeholder")
+                                        )
                                 )
                             )
                     )

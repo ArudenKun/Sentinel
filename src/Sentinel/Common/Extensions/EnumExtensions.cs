@@ -2,8 +2,10 @@
 
 namespace Sentinel.Common.Extensions;
 
-public static partial class EnumExtensions
+public static class EnumExtensions
 {
+    public static IEnumerable<Enum> GetAllValues(this Enum @enum) => @enum.GetType().GetAllValues();
+
     public static IEnumerable<Enum> GetAllValues(this Type t, bool orderByName = false)
     {
         if (!t.IsEnum)

@@ -4,7 +4,6 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Layout;
 using Avalonia.Markup.Declarative;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Metadata;
 using Avalonia.Styling;
 using Lucide.Avalonia;
@@ -74,7 +73,7 @@ public sealed class SettingsRow : ComponentBase
             .HorizontalAlignment(HorizontalAlignment.Stretch)
             .MinWidth(148)
             .Height(72)
-            .CornerRadius(new DynamicResourceExtension("ControlCornerRadius"))
+            .CornerRadius("ControlCornerRadius".GetDynamicResource())
             .BorderThickness(1)
             .Padding(16)
             .Content(
@@ -104,7 +103,7 @@ public sealed class SettingsRow : ComponentBase
                                         BindingMode.OneWay,
                                         StringConverters.IsNotNullOrEmpty
                                     )
-                                    .Foreground(new DynamicResourceExtension("SukiText"))
+                                    .Foreground("SukiText".GetDynamicResource())
                                     .Text(TitleProperty, BindingMode.OneWay),
                                 TextBlock()
                                     .IsVisible(
@@ -113,7 +112,7 @@ public sealed class SettingsRow : ComponentBase
                                         StringConverters.IsNotNullOrEmpty
                                     )
                                     .FontSize(12)
-                                    .Foreground(new DynamicResourceExtension("SukiLowText"))
+                                    .Foreground("SukiLowText".GetDynamicResource())
                                     .Text(DescriptionProperty, BindingMode.OneWay)
                             ),
                         ContentControl()
@@ -125,58 +124,4 @@ public sealed class SettingsRow : ComponentBase
                             .Content(ContentProperty, BindingMode.OneWay)
                     )
             );
-    // GlassCard()
-    //     .Height(72)
-    //     .MinWidth(148)
-    //     .Padding(16)
-    //     .BorderThickness(1)
-    //     .CornerRadius(new DynamicResourceExtension("ControlCornerRadius"))
-    //     .Content(
-    //         Grid()
-    //             .HorizontalAlignment(HorizontalAlignment.Stretch)
-    //             .Cols("Auto,Auto,*,Auto")
-    //             .Children(
-    //                 LucideIcon()
-    //                     .Grid_Column(0)
-    //                     .Margin(2, 0, 20)
-    //                     .VerticalAlignment(VerticalAlignment.Center)
-    //                     .IsVisible(
-    //                         IconKindProperty,
-    //                         BindingMode.OneWay,
-    //                         ObjectConverters.IsNotNull
-    //                     )
-    //                     .Kind(IconKindProperty, BindingMode.OneWay)
-    //                     .Size(20),
-    //                 StackPanel()
-    //                     .Grid_Column(1)
-    //                     .VerticalAlignment(VerticalAlignment.Center)
-    //                     .Orientation(Orientation.Vertical)
-    //                     .Children(
-    //                         TextBlock()
-    //                             .Foreground(new DynamicResourceExtension("SukiText"))
-    //                             .IsVisible(
-    //                                 TitleProperty,
-    //                                 BindingMode.OneWay,
-    //                                 ObjectConverters.IsNotNull
-    //                             )
-    //                             .Text(TitleProperty, BindingMode.OneWay),
-    //                         TextBlock()
-    //                             .FontSize(12)
-    //                             .Foreground(new DynamicResourceExtension("SukiLowText"))
-    //                             .IsVisible(
-    //                                 DescriptionProperty,
-    //                                 BindingMode.OneWay,
-    //                                 ObjectConverters.IsNotNull
-    //                             )
-    //                             .Text(DescriptionProperty, BindingMode.OneWay),
-    //                         ContentControl()
-    //                             .Grid_Column(3)
-    //                             .Margin(12, 0, 0)
-    //                             .HorizontalAlignment(HorizontalAlignment.Right)
-    //                             .VerticalAlignment(VerticalAlignment.Center)
-    //                             .HorizontalContentAlignment(HorizontalAlignment.Right)
-    //                             .Content(ContentProperty)
-    //                     )
-    //             )
-    //     );
 }

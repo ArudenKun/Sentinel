@@ -1,15 +1,16 @@
-﻿using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Sentinel.Configuration;
 using Sentinel.Dependency;
+using Sentinel.Models.Messages;
 using SukiUI.Dialogs;
 using SukiUI.Toasts;
 
 namespace Sentinel.ViewModels;
 
 [DependencyLifetime(ServiceLifetime.Singleton)]
-public sealed partial class MainWindowViewModel : ViewModel
+public sealed partial class MainWindowViewModel : ViewModel, IRecipient<SplashFinishedMessage>
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -25,7 +26,8 @@ public sealed partial class MainWindowViewModel : ViewModel
         DialogManager = dialogManager;
         Settings = settings;
 
-        ViewModel = serviceProvider.GetRequiredService<MainViewModel>();
+        ViewModel = serviceProvider.GetRequiredService<SplashViewModel>();
+        Messenger.Register(this);
     }
 
     public ISukiToastManager ToastManager { get; }
@@ -34,4 +36,9 @@ public sealed partial class MainWindowViewModel : ViewModel
 
     [ObservableProperty]
     public partial ViewModel ViewModel { get; set; }
+
+    public void Receive(SplashFinishedMessage message)
+    {
+        ViewModel = _serviceProvider.GetRequiredService<MainViewModel>();
+    }
 }

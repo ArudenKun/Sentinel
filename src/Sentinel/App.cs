@@ -3,13 +3,20 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
+using Lucide.Avalonia;
 using Microsoft.Extensions.DependencyInjection;
 using Sentinel.Common.Helpers;
 using Sentinel.Services;
+using Sentinel.SourceGenerator.Attributes;
 using Sentinel.ViewModels;
 using Sentinel.Views;
 using SukiUI;
+using SukiUI.Controls;
 using SukiUI.Enums;
+
+[assembly: GenerateMarkupExtensionsForAssembly(typeof(Image))]
+[assembly: GenerateMarkupExtensionsForAssembly(typeof(SukiWindow))]
+[assembly: GenerateMarkupExtensionsForAssembly(typeof(LucideIcon))]
 
 namespace Sentinel;
 
@@ -64,6 +71,7 @@ public sealed class App : Application, IDisposable
         {
             disposable.Dispose();
         }
+
         LogHelper.Cleanup();
     }
 
@@ -88,8 +96,7 @@ public sealed class App : Application, IDisposable
 
         var mainWindow = MainWindow.Build(GetRequiredService<MainWindowViewModel>());
         desktop.MainWindow = mainWindow;
-        TopLevel = TopLevel.GetTopLevel(desktop.MainWindow)!;
-
+        TopLevel = mainWindow;
         base.OnFrameworkInitializationCompleted();
     }
 

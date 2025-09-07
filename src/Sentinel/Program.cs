@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Markup.Declarative;
 using Sentinel.Common.Helpers;
-using Serilog;
 
 namespace Sentinel;
 
@@ -39,5 +39,6 @@ internal static class Program
             .Configure<App>()
             .UsePlatformDetect()
             .UseR3(ex => LogHelper.Error(ex, "R3 Unhandled Exception"))
+            .UseHotReload()
             .LogToTrace();
 }

@@ -17,8 +17,8 @@ public class MainView : View<MainViewModel>
             .Styles(Style<Image>(s => s.Class("AppIcon").Descendant()).Opacity(0.5))
             .IsMenuExpanded(vm.Settings.UI.IsSideMenuExpanded)
             .IsSearchEnabled(false)
-            .ItemsSource(() => vm.Pages)
-            .SelectedItem(() => vm.Page)
+            .ItemsSource(vm.Pages)
+            .SelectedItem(() => vm.Page, page => vm.Page = (PageViewModel)page)
             .ItemTemplate(
                 new FuncDataTemplate<PageViewModel>(
                     (pvm, _) =>

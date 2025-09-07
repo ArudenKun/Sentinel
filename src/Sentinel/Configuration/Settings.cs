@@ -21,10 +21,10 @@ public sealed partial class Settings : SettingsBase, ISingletonDependency, IDisp
         AppHelper.IsDebug ? LogEventLevel.Verbose : LogEventLevel.Information;
 
     [ObservableProperty]
-    public partial bool CheckForUpdates { get; set; } = true;
+    public partial DateTime LastUpdateCheck { get; set; }
 
     [ObservableProperty]
-    public partial DateTime LastUpdateCheck { get; set; }
+    public partial DatabaseSettings Database { get; set; } = new();
 
     [ObservableProperty]
     // ReSharper disable once InconsistentNaming
