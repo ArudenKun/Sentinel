@@ -24,16 +24,17 @@ internal static class Helper
 
     private static readonly string[] IgnoreAvaloniaProperties =
     [
-        "CornerRadiusProperty",
-        "BorderThicknessProperty",
-        "ContentProperty",
+        "CornerRadius",
+        "BorderThickness",
+        // "Content",
+        // "Spacing",
     ];
 
     internal static bool IsNotConflictingExtension(this IFieldSymbol field) =>
-        !IgnoreAvaloniaProperties.Contains(field.Name);
+        !IgnoreAvaloniaProperties.Contains(field.Name.RemoveTrailingProperty());
 
     internal static bool IsNotConflictingExtension(this IPropertySymbol property) =>
-        !IgnoreAvaloniaProperties.Contains(property.Name);
+        !IgnoreAvaloniaProperties.Contains(property.Name.RemoveTrailingProperty());
 
     internal static string? CleanIdentifier(this string name, bool @namespace = false)
     {

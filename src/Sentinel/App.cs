@@ -14,7 +14,7 @@ using SukiUI;
 using SukiUI.Controls;
 using SukiUI.Enums;
 
-[assembly: GenerateMarkupExtensionsForAssembly(typeof(Image))]
+[assembly: GenerateMarkupBuilderForAssembly(typeof(Control))]
 [assembly: GenerateMarkupExtensionsForAssembly(typeof(SukiWindow))]
 [assembly: GenerateMarkupExtensionsForAssembly(typeof(LucideIcon))]
 

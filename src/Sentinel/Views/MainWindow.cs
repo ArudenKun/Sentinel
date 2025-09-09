@@ -73,5 +73,5 @@ public sealed class MainWindow : SukiWindow
                     SukiToastHost().Manager(vm.ToastManager),
                 ]
             )
-            .Content(SukiTransitioningContentControl().Content(vm.ViewModel, BindingMode.TwoWay));
+            .Content(SukiTransitioningContentControl().Content(vm.ViewModel));
 }

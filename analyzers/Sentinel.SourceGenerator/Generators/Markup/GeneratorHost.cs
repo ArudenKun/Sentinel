@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Sentinel.SourceGenerator.Common;
+using Sentinel.SourceGenerator.Common.Extensions;
 using Sentinel.SourceGenerator.Generators.Markup.ExtensionInfos;
 using Sentinel.SourceGenerator.Generators.Markup.Generators;
 using Sentinel.SourceGenerator.Generators.Markup.Generators.AttachedPropertySetterGenerator;
@@ -145,5 +147,39 @@ public sealed class GeneratorHost
         sb.Append("}");
 
         return sb.ToString();
+    }
+
+    public string? GenerateBuilder(INamedTypeSymbol? namedTypeSymbol)
+    {
+        if (namedTypeSymbol is null)
+            return null;
+
+        if (namedTypeSymbol.IsAbstract)
+            return null;
+
+        if (!namedTypeSymbol.InstanceConstructors.Any(x => x.Parameters.Length == 0))
+            return null;
+
+        var name = namedTypeSymbol.Name;
+        var controlType = namedTypeSymbol.ToFullDisplayString();
+
+        var builder = new SourceStringBuilder(namedTypeSymbol);
+
+        builder.NamespaceBlockBrace(
+            "Avalonia.Markup.Declarative",
+            () =>
+            {
+                builder.Line("public static partial class Builders");
+                builder.BlockBrace(() =>
+                {
+                    builder.Line($"public static {controlType} {name}() => new();");
+                    builder.Line(
+                        $"public static {controlType} {name}(out {controlType} @ref) => @ref = new();"
+                    );
+                });
+            }
+        );
+
+        return builder.ToString();
     }
 }

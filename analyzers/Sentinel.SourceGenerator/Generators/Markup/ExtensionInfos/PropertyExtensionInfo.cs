@@ -33,7 +33,10 @@ public class PropertyExtensionInfo : IMemberExtensionInfo
             MemberName = field.AssociatedSymbol.Name.RemoveTrailingProperty();
         }
 
-        ValueType = field.Type.GetLastGenericArgument();
+        ValueType =
+            field.Type.TypeKind == TypeKind.Delegate
+                ? field.Type
+                : field.Type.GetLastGenericArgument();
         ControlTypeName = ControlType.GetFullTypeName();
         ValueTypeSource = ValueType.GetFullTypeName();
 
@@ -73,7 +76,10 @@ public class PropertyExtensionInfo : IMemberExtensionInfo
         MemberName = property.Name.RemoveTrailingProperty();
         Comment = property.GetDocumentation();
 
-        ValueType = property.Type.GetLastGenericArgument();
+        ValueType =
+            property.Type.TypeKind == TypeKind.Delegate
+                ? property.Type
+                : property.Type.GetLastGenericArgument();
         ControlTypeName = ControlType.GetFullTypeName();
         ValueTypeSource = ValueType.GetFullTypeName();
 

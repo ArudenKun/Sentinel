@@ -58,14 +58,14 @@ public sealed class SettingsRow : ComponentBase
 
     protected override StyleGroup BuildStyles() =>
         [
-            Style<ToggleSwitch>(s => s.OfType<ToggleSwitch>())
+            new Style<ToggleSwitch>(s => s.OfType<ToggleSwitch>())
                 .MinWidth(0)
                 .Height(36)
                 .HorizontalContentAlignment(HorizontalAlignment.Right),
-            Style<Slider>(s => s.OfType<Slider>()).MinWidth(140),
-            Style<ComboBox>(s => s.OfType<ComboBox>()).MinWidth(140),
-            Style<TextBox>(s => s.OfType<TextBox>()).MinWidth(140),
-            Style<NumericUpDown>(s => s.OfType<NumericUpDown>()).MinWidth(140),
+            new Style<Slider>(s => s.OfType<Slider>()).MinWidth(140),
+            new Style<ComboBox>(s => s.OfType<ComboBox>()).MinWidth(140),
+            new Style<TextBox>(s => s.OfType<TextBox>()).MinWidth(140),
+            new Style<NumericUpDown>(s => s.OfType<NumericUpDown>()).MinWidth(140),
         ];
 
     protected override object Build() =>

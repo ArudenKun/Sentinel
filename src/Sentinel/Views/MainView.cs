@@ -14,7 +14,7 @@ public class MainView : View<MainViewModel>
 {
     protected override object Build(MainViewModel vm) =>
         SukiSideMenu()
-            .Styles(Style<Image>(s => s.Class("AppIcon").Descendant()).Opacity(0.5))
+            .Styles(new Style<Image>(s => s.Class("AppIcon").Descendant()).Opacity(0.5))
             .IsMenuExpanded(vm.Settings.UI.IsSideMenuExpanded)
             .IsSearchEnabled(false)
             .ItemsSource(vm.Pages)
